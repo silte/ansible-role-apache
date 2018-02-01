@@ -53,22 +53,21 @@
   SSLCompression off
 {% endif %}
 
-{% if vhost.certificate_file is defined %}
-  SSLCertificateFile {{ vhost.certificate_file }}
-{% else %}
-  SSLCertificateFile /etc/letsencrypt/live/{{ vhost.servername }}/fullchain.pem
-{% endif %}
 
-{% if vhost.certificate_key_file is defined %}
-  SSLCertificateKeyFile {{ vhost.certificate_key_file }}
-{% else %}
+{% if vhost.certbot is defined and vhost.certbot %}
+
+  SSLCertificateFile /etc/letsencrypt/live/{{ vhost.servername }}/fullchain.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/{{ vhost.servername }}/chain.pem
   SSLCertificateKeyFile /etc/letsencrypt/live/{{ vhost.servername }}/privkey.pem
-{% endif %}
+
+{% else %}
+
+  SSLCertificateFile {{ vhost.certificate_file }}
+  SSLCertificateKeyFile {{ vhost.certificate_key_file }}
 
 {% if vhost.certificate_chain_file is defined %}
   SSLCertificateChainFile {{ vhost.certificate_chain_file }}
-{% else %}
-  SSLCertificateChainFile /etc/letsencrypt/live/{{ vhost.servername }}/chain.pem
+{% endif %}
 {% endif %}
 
 {% if vhost.serveradmin is defined %}
