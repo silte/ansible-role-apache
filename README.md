@@ -72,6 +72,16 @@ No SSL vhosts are configured by default, but you can add them using the same pat
           RewriteCond %{HTTP_HOST} !^www\. [NC]
           RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
+To use Let's Encrypt certificates add certbot parameter to load certificates from Let's Encrypt default location (/etc/letsencrypt/live/{CERTIFICATE-NAME}/...)
+
+    apache_vhosts_ssl:
+      - servername: "local.dev",
+        documentroot: "/var/www/html",
+        certbot: {CERTIFICATE-NAME}
+        extra_parameters: |
+          RewriteCond %{HTTP_HOST} !^www\. [NC]
+          RewriteRule ^(.*)$ http://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
 Other SSL directives can be managed with other SSL-related role variables.
 
     apache_ssl_protocol: "All -SSLv2 -SSLv3"
