@@ -56,9 +56,9 @@
 
 {% if vhost.certbot is defined and vhost.certbot %}
 
-  SSLCertificateFile /etc/letsencrypt/live/{{ vhost.servername }}/fullchain.pem
-  SSLCertificateChainFile /etc/letsencrypt/live/{{ vhost.servername }}/chain.pem
-  SSLCertificateKeyFile /etc/letsencrypt/live/{{ vhost.servername }}/privkey.pem
+  SSLCertificateFile /etc/letsencrypt/live/{{ vhost.certbot }}/fullchain.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/{{ vhost.certbot }}/chain.pem
+  SSLCertificateKeyFile /etc/letsencrypt/live/{{ vhost.certbot }}/privkey.pem
 
 {% else %}
 
